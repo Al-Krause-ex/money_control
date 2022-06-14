@@ -386,7 +386,7 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
                         title: Center(
                           child: Text(
                             'В процессе разработки :)',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.black),
                           ),
                         ),
                         actions: [

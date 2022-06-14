@@ -50,7 +50,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
       body: Center(
         child: Text(
           'В процессе разработки :)',
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(color: Colors.black),
         ),
       ),
       // body: Column(
