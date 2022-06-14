@@ -380,6 +380,23 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
               ),
             ),
             onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                        title: Center(
+                          child: Text(
+                            'В процессе разработки :)',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('ОК'))
+                        ],
+                      ));
               // showDialog(
               //     barrierDismissible: false,
               //     context: context,
@@ -462,376 +479,376 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
     );
   }
 
-  // Future<String> getExternalStorageReportsDirectory() async {
-  //   final Directory? extDir = await getExternalStorageDirectory();
-  //   String dirPath = '${extDir!.path}/CostAccountingReports';
-  //   dirPath = dirPath.replaceAll("Android/data/k4s.money_control/files/", "");
-  //
-  //   return dirPath;
-  // }
+// Future<String> getExternalStorageReportsDirectory() async {
+//   final Directory? extDir = await getExternalStorageDirectory();
+//   String dirPath = '${extDir!.path}/CostAccountingReports';
+//   dirPath = dirPath.replaceAll("Android/data/k4s.money_control/files/", "");
+//
+//   return dirPath;
+// }
 
-  // List<Transaction> getTxByDate(firstDate, secondDate) {
-  //   return dataStorage.transactions.where((transaction) {
-  //     var start = transaction.date.dateNow().isAtSameMomentAs(firstDate) ||
-  //         transaction.date.dateNow().isAfter(firstDate);
-  //     var end = transaction.date.dateNow().isAtSameMomentAs(secondDate) ||
-  //         transaction.date.dateNow().isBefore(secondDate);
-  //
-  //     if (start && end) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }).toList();
-  // }
+// List<Transaction> getTxByDate(firstDate, secondDate) {
+//   return dataStorage.transactions.where((transaction) {
+//     var start = transaction.date.dateNow().isAtSameMomentAs(firstDate) ||
+//         transaction.date.dateNow().isAfter(firstDate);
+//     var end = transaction.date.dateNow().isAtSameMomentAs(secondDate) ||
+//         transaction.date.dateNow().isBefore(secondDate);
+//
+//     if (start && end) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }).toList();
+// }
 
-  // void generateReportGeneral(Excel excel) {
-  //   transactions = getTxByDate(dateStart, dateEnd);
-  //
-  //   var listMapCats = <Map<String, dynamic>>[];
-  //   var listGroupMap = <Map<String, dynamic>>[];
-  //
-  //   var totalCost = 0;
-  //   var totalIncome = 0;
-  //
-  //   for (var tx in transactions) {
-  //     if (tx.category.action == 0)
-  //       totalCost += tx.sum;
-  //     else
-  //       totalIncome += tx.sum;
-  //
-  //     var mapCat = {
-  //       'category': tx.title,
-  //       'sum': tx.sum,
-  //       'action': tx.category.action,
-  //     };
-  //
-  //     listMapCats.add(mapCat);
-  //   }
-  //
-  //   var newMap =
-  //       groupBy(listMapCats, (Map<String, dynamic> obj) => obj['category']);
-  //
-  //   for (var k = 0; k < newMap.keys.length; k++) {
-  //     listGroupMap.add({
-  //       'category': newMap.keys.toList()[k],
-  //       'sum': 0,
-  //       'action': -1,
-  //     });
-  //
-  //     for (var v in newMap[newMap.keys.toList()[k]]!) {
-  //       listGroupMap[k]['sum'] += v['sum'];
-  //       listGroupMap[k]['action'] = v['action'];
-  //     }
-  //   }
-  //
-  //   excel.rename('Sheet1', 'General');
-  //
-  //   Sheet sheetObject = excel['General'];
-  //   sheetObject.appendRow([
-  //     'Дата начала',
-  //     'Дата окончания',
-  //     'Тип',
-  //     'Сумма',
-  //   ]);
-  //
-  //   sheetObject.appendRow([
-  //     '${DateFormat.yMd().format(dateStart.dateNow()).toString()}',
-  //     '${DateFormat.yMd().format(dateEnd.dateNow()).toString()}',
-  //     'Расходы',
-  //     '$totalCost',
-  //   ]);
-  //
-  //   sheetObject.appendRow([
-  //     '${DateFormat.yMd().format(dateStart.dateNow()).toString()}',
-  //     '${DateFormat.yMd().format(dateEnd.dateNow()).toString()}',
-  //     'Доходы',
-  //     '$totalIncome',
-  //   ]);
-  //
-  //   sheetObject.appendRow(['']);
-  //
-  //   sheetObject.appendRow(['Категория', 'Тип', 'Сумма']);
-  //
-  //   for (var item in listGroupMap) {
-  //     String actionStr = '';
-  //     if (item['action'] == 0)
-  //       actionStr = 'Расходы';
-  //     else
-  //       actionStr = 'Доходы';
-  //
-  //     sheetObject.appendRow([
-  //       '${item['category']}',
-  //       actionStr,
-  //       '${item['sum']}',
-  //     ]);
-  //   }
-  // }
+// void generateReportGeneral(Excel excel) {
+//   transactions = getTxByDate(dateStart, dateEnd);
+//
+//   var listMapCats = <Map<String, dynamic>>[];
+//   var listGroupMap = <Map<String, dynamic>>[];
+//
+//   var totalCost = 0;
+//   var totalIncome = 0;
+//
+//   for (var tx in transactions) {
+//     if (tx.category.action == 0)
+//       totalCost += tx.sum;
+//     else
+//       totalIncome += tx.sum;
+//
+//     var mapCat = {
+//       'category': tx.title,
+//       'sum': tx.sum,
+//       'action': tx.category.action,
+//     };
+//
+//     listMapCats.add(mapCat);
+//   }
+//
+//   var newMap =
+//       groupBy(listMapCats, (Map<String, dynamic> obj) => obj['category']);
+//
+//   for (var k = 0; k < newMap.keys.length; k++) {
+//     listGroupMap.add({
+//       'category': newMap.keys.toList()[k],
+//       'sum': 0,
+//       'action': -1,
+//     });
+//
+//     for (var v in newMap[newMap.keys.toList()[k]]!) {
+//       listGroupMap[k]['sum'] += v['sum'];
+//       listGroupMap[k]['action'] = v['action'];
+//     }
+//   }
+//
+//   excel.rename('Sheet1', 'General');
+//
+//   Sheet sheetObject = excel['General'];
+//   sheetObject.appendRow([
+//     'Дата начала',
+//     'Дата окончания',
+//     'Тип',
+//     'Сумма',
+//   ]);
+//
+//   sheetObject.appendRow([
+//     '${DateFormat.yMd().format(dateStart.dateNow()).toString()}',
+//     '${DateFormat.yMd().format(dateEnd.dateNow()).toString()}',
+//     'Расходы',
+//     '$totalCost',
+//   ]);
+//
+//   sheetObject.appendRow([
+//     '${DateFormat.yMd().format(dateStart.dateNow()).toString()}',
+//     '${DateFormat.yMd().format(dateEnd.dateNow()).toString()}',
+//     'Доходы',
+//     '$totalIncome',
+//   ]);
+//
+//   sheetObject.appendRow(['']);
+//
+//   sheetObject.appendRow(['Категория', 'Тип', 'Сумма']);
+//
+//   for (var item in listGroupMap) {
+//     String actionStr = '';
+//     if (item['action'] == 0)
+//       actionStr = 'Расходы';
+//     else
+//       actionStr = 'Доходы';
+//
+//     sheetObject.appendRow([
+//       '${item['category']}',
+//       actionStr,
+//       '${item['sum']}',
+//     ]);
+//   }
+// }
 
-  // void generateReportWithPositions(Excel excel) {
-  //   transactions = getTxByDate(dateStart, dateEnd);
-  //
-  //   var listMapCats = <Map<String, dynamic>>[];
-  //   List<Map<String, dynamic>> listPositions = [];
-  //
-  //   for (var tx in transactions) {
-  //     for (var position in tx.positions) {
-  //       Map<String, dynamic> mapPosition = {
-  //         'title': position.title,
-  //         'price': position.price,
-  //         'amount': position.amount
-  //       };
-  //
-  //       listPositions.add(mapPosition);
-  //     }
-  //
-  //     var mapCat = {
-  //       'category': tx.title,
-  //       'sum': tx.sum,
-  //       'action': tx.category.action,
-  //       'date': tx.date,
-  //       'positions': listPositions,
-  //     };
-  //
-  //     listPositions = [];
-  //     listMapCats.add(mapCat);
-  //   }
-  //
-  //   Sheet sheetObject = excel['Extended'];
-  //   sheetObject.appendRow([
-  //     'Категория',
-  //     'Тип',
-  //     'Дата',
-  //     'Позиция',
-  //     'Количество',
-  //     'Сумма',
-  //   ]);
-  //
-  //   for (var tx in listMapCats) {
-  //     sheetObject.appendRow([
-  //       tx['category'],
-  //       tx['action'] == 0 ? 'Расходы' : 'Доходы',
-  //       tx['date'].toString(),
-  //       'Итого',
-  //       'Итого',
-  //       tx['sum'],
-  //     ]);
-  //
-  //     if (tx['positions'].length != 0) {
-  //       for (var pos in tx['positions']) {
-  //         sheetObject.appendRow([
-  //           '',
-  //           '',
-  //           '',
-  //           pos['title'],
-  //           pos['amount'],
-  //           pos['price'],
-  //         ]);
-  //       }
-  //     }
-  //   }
-  // }
+// void generateReportWithPositions(Excel excel) {
+//   transactions = getTxByDate(dateStart, dateEnd);
+//
+//   var listMapCats = <Map<String, dynamic>>[];
+//   List<Map<String, dynamic>> listPositions = [];
+//
+//   for (var tx in transactions) {
+//     for (var position in tx.positions) {
+//       Map<String, dynamic> mapPosition = {
+//         'title': position.title,
+//         'price': position.price,
+//         'amount': position.amount
+//       };
+//
+//       listPositions.add(mapPosition);
+//     }
+//
+//     var mapCat = {
+//       'category': tx.title,
+//       'sum': tx.sum,
+//       'action': tx.category.action,
+//       'date': tx.date,
+//       'positions': listPositions,
+//     };
+//
+//     listPositions = [];
+//     listMapCats.add(mapCat);
+//   }
+//
+//   Sheet sheetObject = excel['Extended'];
+//   sheetObject.appendRow([
+//     'Категория',
+//     'Тип',
+//     'Дата',
+//     'Позиция',
+//     'Количество',
+//     'Сумма',
+//   ]);
+//
+//   for (var tx in listMapCats) {
+//     sheetObject.appendRow([
+//       tx['category'],
+//       tx['action'] == 0 ? 'Расходы' : 'Доходы',
+//       tx['date'].toString(),
+//       'Итого',
+//       'Итого',
+//       tx['sum'],
+//     ]);
+//
+//     if (tx['positions'].length != 0) {
+//       for (var pos in tx['positions']) {
+//         sheetObject.appendRow([
+//           '',
+//           '',
+//           '',
+//           pos['title'],
+//           pos['amount'],
+//           pos['price'],
+//         ]);
+//       }
+//     }
+//   }
+// }
 
-  // void generateReportMonthlyOrWeekly(Excel excel, bool isMonthly) {
-  //   var listFinalMap = <Map<String, dynamic>>[];
-  //
-  //   if (dateStart != null && dateEnd != null) {
-  //     var lastDateIsBeforeDateEnd = true;
-  //
-  //     var firstDate = dateStart;
-  //     var lastDate = dateStart;
-  //
-  //     while (lastDateIsBeforeDateEnd) {
-  //       var listMapCats = <Map<String, dynamic>>[];
-  //       var listGroupMap = <Map<String, dynamic>>[];
-  //
-  //       var totalCost = 0;
-  //       var totalIncome = 0;
-  //
-  //       if (isMonthly) {
-  //         var beginningNextMonth = (lastDate.month < 12)
-  //             ? DateTime(lastDate.year, lastDate.month + 1, 1)
-  //             : DateTime(lastDate.year + 1, 1, 1);
-  //
-  //         var lastDayInMonth =
-  //             beginningNextMonth.subtract(Duration(days: 1)).day;
-  //
-  //         lastDate = lastDate.add(Duration(days: lastDayInMonth));
-  //       } else
-  //         lastDate = lastDate.add(Duration(days: 6));
-  //
-  //       if (lastDate.isAfter(dateEnd)) {
-  //         lastDate = dateEnd;
-  //         lastDateIsBeforeDateEnd = false;
-  //       }
-  //
-  //       transactions = getTxByDate(firstDate, lastDate);
-  //
-  //       for (var tx in transactions) {
-  //         if (tx.category.action == 0) {
-  //           totalCost += tx.sum;
-  //         } else {
-  //           totalIncome += tx.sum;
-  //         }
-  //
-  //         var mapCat = {
-  //           'category': tx.title,
-  //           'action': tx.category.action,
-  //           'sum': tx.sum,
-  //         };
-  //
-  //         listMapCats.add(mapCat);
-  //       }
-  //
-  //       var newMap =
-  //           groupBy(listMapCats, (Map<String, dynamic> obj) => obj['category']);
-  //
-  //       for (var k = 0; k < newMap.keys.length; k++) {
-  //         listGroupMap.add({
-  //           'category': newMap.keys.toList()[k],
-  //           'sum': 0,
-  //           'action': -1,
-  //         });
-  //
-  //         for (var v in newMap[newMap.keys.toList()[k]]!) {
-  //           listGroupMap[k]['sum'] += v['sum'];
-  //           listGroupMap[k]['action'] = v['action'];
-  //         }
-  //       }
-  //
-  //       listFinalMap.add({
-  //         'category': 'Итого',
-  //         'action': 'Расходы',
-  //         'dateStart': firstDate,
-  //         'dateEnd': lastDate,
-  //         'sum': totalCost
-  //       });
-  //
-  //       listFinalMap.add({
-  //         'category': 'Итого',
-  //         'action': 'Доходы',
-  //         'dateStart': firstDate,
-  //         'dateEnd': lastDate,
-  //         'sum': totalIncome
-  //       });
-  //
-  //       for (var m in listGroupMap) {
-  //         var nMap = {
-  //           'category': m['category'],
-  //           'action': m['action'] == 0 ? 'Расходы' : 'Доходы',
-  //           'dateStart': firstDate,
-  //           'dateEnd': lastDate,
-  //           'sum': m['sum'],
-  //         };
-  //
-  //         listFinalMap.add(nMap);
-  //       }
-  //
-  //       if (!isMonthly) lastDate = lastDate.add(Duration(days: 1));
-  //
-  //       firstDate = lastDate;
-  //
-  //       if (firstDate.isAfter(dateEnd)) lastDateIsBeforeDateEnd = false;
-  //     }
-  //   }
-  //
-  //   Sheet sheetObject;
-  //
-  //   if (isMonthly)
-  //     sheetObject = excel['Monthly'];
-  //   else
-  //     sheetObject = excel['Weekly'];
-  //
-  //   sheetObject.appendRow([
-  //     'Категория',
-  //     'Тип',
-  //     'Дата начала',
-  //     'Дата окончания',
-  //     'Сумма',
-  //   ]);
-  //
-  //   for (var itemMap in listFinalMap) {
-  //     sheetObject.appendRow([
-  //       itemMap['category'],
-  //       itemMap['action'],
-  //       DateFormat.yMd().format(itemMap['dateStart']).toString(),
-  //       DateFormat.yMd().format(itemMap['dateEnd']).toString(),
-  //       itemMap['sum'],
-  //     ]);
-  //   }
-  // }
+// void generateReportMonthlyOrWeekly(Excel excel, bool isMonthly) {
+//   var listFinalMap = <Map<String, dynamic>>[];
+//
+//   if (dateStart != null && dateEnd != null) {
+//     var lastDateIsBeforeDateEnd = true;
+//
+//     var firstDate = dateStart;
+//     var lastDate = dateStart;
+//
+//     while (lastDateIsBeforeDateEnd) {
+//       var listMapCats = <Map<String, dynamic>>[];
+//       var listGroupMap = <Map<String, dynamic>>[];
+//
+//       var totalCost = 0;
+//       var totalIncome = 0;
+//
+//       if (isMonthly) {
+//         var beginningNextMonth = (lastDate.month < 12)
+//             ? DateTime(lastDate.year, lastDate.month + 1, 1)
+//             : DateTime(lastDate.year + 1, 1, 1);
+//
+//         var lastDayInMonth =
+//             beginningNextMonth.subtract(Duration(days: 1)).day;
+//
+//         lastDate = lastDate.add(Duration(days: lastDayInMonth));
+//       } else
+//         lastDate = lastDate.add(Duration(days: 6));
+//
+//       if (lastDate.isAfter(dateEnd)) {
+//         lastDate = dateEnd;
+//         lastDateIsBeforeDateEnd = false;
+//       }
+//
+//       transactions = getTxByDate(firstDate, lastDate);
+//
+//       for (var tx in transactions) {
+//         if (tx.category.action == 0) {
+//           totalCost += tx.sum;
+//         } else {
+//           totalIncome += tx.sum;
+//         }
+//
+//         var mapCat = {
+//           'category': tx.title,
+//           'action': tx.category.action,
+//           'sum': tx.sum,
+//         };
+//
+//         listMapCats.add(mapCat);
+//       }
+//
+//       var newMap =
+//           groupBy(listMapCats, (Map<String, dynamic> obj) => obj['category']);
+//
+//       for (var k = 0; k < newMap.keys.length; k++) {
+//         listGroupMap.add({
+//           'category': newMap.keys.toList()[k],
+//           'sum': 0,
+//           'action': -1,
+//         });
+//
+//         for (var v in newMap[newMap.keys.toList()[k]]!) {
+//           listGroupMap[k]['sum'] += v['sum'];
+//           listGroupMap[k]['action'] = v['action'];
+//         }
+//       }
+//
+//       listFinalMap.add({
+//         'category': 'Итого',
+//         'action': 'Расходы',
+//         'dateStart': firstDate,
+//         'dateEnd': lastDate,
+//         'sum': totalCost
+//       });
+//
+//       listFinalMap.add({
+//         'category': 'Итого',
+//         'action': 'Доходы',
+//         'dateStart': firstDate,
+//         'dateEnd': lastDate,
+//         'sum': totalIncome
+//       });
+//
+//       for (var m in listGroupMap) {
+//         var nMap = {
+//           'category': m['category'],
+//           'action': m['action'] == 0 ? 'Расходы' : 'Доходы',
+//           'dateStart': firstDate,
+//           'dateEnd': lastDate,
+//           'sum': m['sum'],
+//         };
+//
+//         listFinalMap.add(nMap);
+//       }
+//
+//       if (!isMonthly) lastDate = lastDate.add(Duration(days: 1));
+//
+//       firstDate = lastDate;
+//
+//       if (firstDate.isAfter(dateEnd)) lastDateIsBeforeDateEnd = false;
+//     }
+//   }
+//
+//   Sheet sheetObject;
+//
+//   if (isMonthly)
+//     sheetObject = excel['Monthly'];
+//   else
+//     sheetObject = excel['Weekly'];
+//
+//   sheetObject.appendRow([
+//     'Категория',
+//     'Тип',
+//     'Дата начала',
+//     'Дата окончания',
+//     'Сумма',
+//   ]);
+//
+//   for (var itemMap in listFinalMap) {
+//     sheetObject.appendRow([
+//       itemMap['category'],
+//       itemMap['action'],
+//       DateFormat.yMd().format(itemMap['dateStart']).toString(),
+//       DateFormat.yMd().format(itemMap['dateEnd']).toString(),
+//       itemMap['sum'],
+//     ]);
+//   }
+// }
 
-  // Future<bool> createFolderAndFile() async {
-  //   var isDuplicate = false;
-  //   var countCopies = 0;
-  //   String? path;
-  //
-  //   await getExternalStorageReportsDirectory()
-  //       .then((String result) => path = result);
-  //
-  //   var nameFile = tecFileName.text;
-  //
-  //   if (tecFileName.text == '') nameFile = 'report';
-  //
-  //   var status = await Permission.storage.status;
-  //   if (!status.isGranted) {
-  //     await Permission.storage.request().then((newStatus) {
-  //       status = newStatus;
-  //     });
-  //   }
-  //
-  //   if (path != null) {
-  //     if (status.isGranted) {
-  //       await Directory(path!).create(recursive: true);
-  //
-  //       showDialog(
-  //           barrierDismissible: false,
-  //           context: context,
-  //           builder: (BuildContext context) {
-  //             return AlertDialog(
-  //               title: Text(
-  //                 'Генерация отчёта',
-  //                 style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),
-  //               ),
-  //               content: LinearProgressIndicator(
-  //                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-  //               ),
-  //             );
-  //           });
-  //
-  //       File file = File('$path/$nameFile.xlsx');
-  //       await file.exists().then((value) => isDuplicate = value);
-  //
-  //       while (isDuplicate) {
-  //         countCopies++;
-  //         file = File('$path/${nameFile}_$countCopies.xlsx');
-  //
-  //         await file.exists().then((value) => isDuplicate = value);
-  //       }
-  //
-  //       setState(() {
-  //         isGenerating = true;
-  //       });
-  //
-  //       var excel = Excel.createExcel();
-  //       generateReportGeneral(excel);
-  //
-  //       if (isGenerateReportExtended) generateReportWithPositions(excel);
-  //
-  //       if (isGenerateReportMonthly) generateReportMonthlyOrWeekly(excel, true);
-  //
-  //       if (isGenerateReportWeekly) generateReportMonthlyOrWeekly(excel, false);
-  //
-  //       excel.encode().then((onValue) {
-  //         file.createSync(recursive: true);
-  //         file.writeAsBytesSync(onValue);
-  //         // File(join('$path/excel.xlsx'))
-  //         //   ..createSync(recursive: true)
-  //         //   ..writeAsBytesSync(onValue);
-  //       });
-  //     }
-  //   }
-  //
-  //   return status.isGranted;
-  // }
+// Future<bool> createFolderAndFile() async {
+//   var isDuplicate = false;
+//   var countCopies = 0;
+//   String? path;
+//
+//   await getExternalStorageReportsDirectory()
+//       .then((String result) => path = result);
+//
+//   var nameFile = tecFileName.text;
+//
+//   if (tecFileName.text == '') nameFile = 'report';
+//
+//   var status = await Permission.storage.status;
+//   if (!status.isGranted) {
+//     await Permission.storage.request().then((newStatus) {
+//       status = newStatus;
+//     });
+//   }
+//
+//   if (path != null) {
+//     if (status.isGranted) {
+//       await Directory(path!).create(recursive: true);
+//
+//       showDialog(
+//           barrierDismissible: false,
+//           context: context,
+//           builder: (BuildContext context) {
+//             return AlertDialog(
+//               title: Text(
+//                 'Генерация отчёта',
+//                 style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),
+//               ),
+//               content: LinearProgressIndicator(
+//                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+//               ),
+//             );
+//           });
+//
+//       File file = File('$path/$nameFile.xlsx');
+//       await file.exists().then((value) => isDuplicate = value);
+//
+//       while (isDuplicate) {
+//         countCopies++;
+//         file = File('$path/${nameFile}_$countCopies.xlsx');
+//
+//         await file.exists().then((value) => isDuplicate = value);
+//       }
+//
+//       setState(() {
+//         isGenerating = true;
+//       });
+//
+//       var excel = Excel.createExcel();
+//       generateReportGeneral(excel);
+//
+//       if (isGenerateReportExtended) generateReportWithPositions(excel);
+//
+//       if (isGenerateReportMonthly) generateReportMonthlyOrWeekly(excel, true);
+//
+//       if (isGenerateReportWeekly) generateReportMonthlyOrWeekly(excel, false);
+//
+//       excel.encode().then((onValue) {
+//         file.createSync(recursive: true);
+//         file.writeAsBytesSync(onValue);
+//         // File(join('$path/excel.xlsx'))
+//         //   ..createSync(recursive: true)
+//         //   ..writeAsBytesSync(onValue);
+//       });
+//     }
+//   }
+//
+//   return status.isGranted;
+// }
 }

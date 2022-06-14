@@ -82,7 +82,9 @@ class _CommonScreenState extends State<CommonScreen> {
     _initializeDatesSelector(currentDateSelection);
 
     for (var card in dataStorage.appliedCards) {
-      if (DateTime.now().withoutTime().isAfter(card.createdDate.withoutTime())) {
+      if (DateTime.now()
+          .withoutTime()
+          .isAfter(card.createdDate.withoutTime())) {
         final diff = DateTime.now()
             .withoutTime()
             .difference(card.createdDate.withoutTime())
@@ -148,8 +150,9 @@ class _CommonScreenState extends State<CommonScreen> {
 
     if (dateStart != null && dateEnd != null) {
       visibleTx = dataStorage.transactions.where((transaction) {
-        var start = transaction.date.withoutTime().isAtSameMomentAs(dateStart) ||
-            transaction.date.withoutTime().isAfter(dateStart);
+        var start =
+            transaction.date.withoutTime().isAtSameMomentAs(dateStart) ||
+                transaction.date.withoutTime().isAfter(dateStart);
         var end = transaction.date.withoutTime().isAtSameMomentAs(dateEnd) ||
             transaction.date.withoutTime().isBefore(dateEnd);
 
@@ -242,24 +245,24 @@ class _CommonScreenState extends State<CommonScreen> {
             onPressed: () {
               if (dataStorage.appliedCategories.isEmpty) {
                 // ignore: deprecated_member_use
-                _drawerKey.currentState?.removeCurrentSnackBar();
+                // _drawerKey.currentState?.removeCurrentSnackBar();
                 // ignore: deprecated_member_use
-                _drawerKey.currentState?.showSnackBar(
-                  SnackBar(
-                    duration: Duration(seconds: 2),
-                    content: Text('У вас ещё нет категорий'),
-                    action: SnackBarAction(
-                      label: 'Создать категорию',
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          SettingsScreen.routeName,
-                          arguments: TabsScreenArguments(2),
-                        );
-                      },
-                    ),
-                  ),
-                );
+                // _drawerKey.currentState?.showSnackBar(
+                //   SnackBar(
+                //     duration: Duration(seconds: 2),
+                //     content: Text('У вас ещё нет категорий'),
+                //     action: SnackBarAction(
+                //       label: 'Создать категорию',
+                //       onPressed: () {
+                //         Navigator.pushNamed(
+                //           context,
+                //           SettingsScreen.routeName,
+                //           arguments: TabsScreenArguments(2),
+                //         );
+                //       },
+                //     ),
+                //   ),
+                // );
               } else {
                 // _addNewTransaction(context, );
               }
@@ -278,14 +281,14 @@ class _CommonScreenState extends State<CommonScreen> {
             key: GlobalKey(),
             onDismissed: (direction) {
               setState(() {
-                var deletedTransaction = visibleTx[index];
-
-                for (var card in dataStorage.appliedCards) {
-                  if (card.categoryId == deletedTransaction.categoryId &&
-                      card.markId == deletedTransaction.markId) {
-                    card.passedSum -= deletedTransaction.sum;
-                  }
-                }
+                // var deletedTransaction = visibleTx[index];
+                //
+                // for (var card in dataStorage.appliedCards) {
+                //   if (card.categoryId == deletedTransaction.categoryId &&
+                //       card.markId == deletedTransaction.markId) {
+                //     card.passedSum -= deletedTransaction.sum;
+                //   }
+                // }
 
                 // if (deletedTransaction.category.action == 0) {
                 //   dataStorage.totalBalance += deletedTransaction.sum;
@@ -295,22 +298,22 @@ class _CommonScreenState extends State<CommonScreen> {
                 //   balance -= deletedTransaction.sum;
                 // }
 
-                dataStorage.transactions.removeWhere(
-                    (transaction) => transaction.id == deletedTransaction.id);
-
-                dataStorage.saveData();
+                // dataStorage.transactions.removeWhere(
+                //     (transaction) => transaction.id == deletedTransaction.id);
+                //
+                // dataStorage.saveData();
               });
 
               // ignore: deprecated_member_use
-              _drawerKey.currentState?.hideCurrentSnackBar();
+              // _drawerKey.currentState?.hideCurrentSnackBar();
               // ignore: deprecated_member_use
-              _drawerKey.currentState?.showSnackBar(
-                SnackBar(
-                  duration: Duration(seconds: 2),
-                  content:
-                      Text('Транзакция "${visibleTx[index].title}" удалена'),
-                ),
-              );
+              // _drawerKey.currentState?.showSnackBar(
+              //   SnackBar(
+              //     duration: Duration(seconds: 2),
+              //     content:
+              //         Text('Транзакция "${visibleTx[index].title}" удалена'),
+              //   ),
+              // );
               // Scaffold.of(context)
               //     .showSnackBar(SnackBar(content: Text("${visibleTx[index]} dismissed")));
             },

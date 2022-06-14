@@ -47,168 +47,174 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        _buildDropdownButtonDates(),
-                        const SizedBox(width: 16.0),
-                        _buildFilterButton()
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        _buildRaisedButtonDate(context, true),
-                        _buildRaisedButtonDate(context, false),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          ElevatedButton(
-              onPressed: () {
-                var transactions = dataCubit!.state.customUser.transactions;
-
-                var listMapCats = <Map<String, dynamic>>[];
-                var listGroupMap = <Map<String, dynamic>>[];
-
-                for (var tx in transactions) {
-                  var cat = dataCubit!.state.customUser.categories
-                      .firstWhere((c) => c.id == tx.categoryId);
-                  var mapCat = {
-                    'category': tx.title,
-                    'sum': tx.sum,
-                    'action': cat.action,
-                  };
-                  listMapCats.add(mapCat);
-                }
-
-                var newMap = groupBy(
-                    listMapCats, (Map<String, dynamic> obj) => obj['category']);
-                for (var k = 0; k < newMap.keys.length; k++) {
-                  listGroupMap.add({
-                    'category': newMap.keys.toList()[k],
-                    'sum': 0,
-                    'action': -1,
-                  });
-                  for (var v in newMap[newMap.keys.toList()[k]]!) {
-                    listGroupMap[k]['sum'] += v['sum'];
-                    listGroupMap[k]['action'] = v['action'];
-                  }
-                }
-
-                print(listGroupMap);
-              },
-              child: Text('Generate')),
-          Row(
-            children: [
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: PieChart(
-                    PieChartData(
-                        pieTouchData: PieTouchData(touchCallback:
-                            (FlTouchEvent event, pieTouchResponse) {
-                          setState(() {
-                            if (!event.isInterestedForInteractions ||
-                                pieTouchResponse == null ||
-                                pieTouchResponse.touchedSection == null) {
-                              touchedIndex = -1;
-                              return;
-                            }
-                            touchedIndex = pieTouchResponse
-                                .touchedSection!.touchedSectionIndex;
-                          });
-                        }),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        sectionsSpace: 0,
-                        centerSpaceRadius: 0,
-                        sections: showingSections()),
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: [
-                      Container(
-                        width: 10.0,
-                        height: 10.0,
-                        color: Color(0xff0293ee),
-                      ),
-                      const SizedBox(width: 10.0),
-                      Text('First')
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 10.0,
-                        height: 10.0,
-                        color: Color(0xfff8b250),
-                      ),
-                      const SizedBox(width: 10.0),
-                      Text('Second')
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 10.0,
-                        height: 10.0,
-                        color: Color(0xff845bef),
-                      ),
-                      const SizedBox(width: 10.0),
-                      Text('Third')
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 10.0,
-                        height: 10.0,
-                        color: Color(0xff13d38e),
-                      ),
-                      const SizedBox(width: 10.0),
-                      Text('Fourth')
-                    ],
-                  ),
-                  SizedBox(
-                    height: 18,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 28,
-              ),
-            ],
-          ),
-        ],
+      body: Center(
+        child: Text(
+          'В процессе разработки :)',
+          style: Theme.of(context).textTheme.headline6,
+        ),
       ),
+      // body: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+      //       child: Row(
+      //         children: [
+      //           Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: [
+      //               Row(
+      //                 children: [
+      //                   _buildDropdownButtonDates(),
+      //                   const SizedBox(width: 16.0),
+      //                   _buildFilterButton()
+      //                 ],
+      //               ),
+      //               Row(
+      //                 children: [
+      //                   _buildRaisedButtonDate(context, true),
+      //                   _buildRaisedButtonDate(context, false),
+      //                 ],
+      //               ),
+      //             ],
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //     ElevatedButton(
+      //         onPressed: () {
+      //           var transactions = dataCubit!.state.customUser.transactions;
+      //
+      //           var listMapCats = <Map<String, dynamic>>[];
+      //           var listGroupMap = <Map<String, dynamic>>[];
+      //
+      //           for (var tx in transactions) {
+      //             var cat = dataCubit!.state.customUser.categories
+      //                 .firstWhere((c) => c.id == tx.categoryId);
+      //             var mapCat = {
+      //               'category': tx.title,
+      //               'sum': tx.sum,
+      //               'action': cat.action,
+      //             };
+      //             listMapCats.add(mapCat);
+      //           }
+      //
+      //           var newMap = groupBy(
+      //               listMapCats, (Map<String, dynamic> obj) => obj['category']);
+      //           for (var k = 0; k < newMap.keys.length; k++) {
+      //             listGroupMap.add({
+      //               'category': newMap.keys.toList()[k],
+      //               'sum': 0,
+      //               'action': -1,
+      //             });
+      //             for (var v in newMap[newMap.keys.toList()[k]]!) {
+      //               listGroupMap[k]['sum'] += v['sum'];
+      //               listGroupMap[k]['action'] = v['action'];
+      //             }
+      //           }
+      //
+      //           print(listGroupMap);
+      //         },
+      //         child: Text('Generate')),
+      //     Row(
+      //       children: [
+      //         Expanded(
+      //           child: AspectRatio(
+      //             aspectRatio: 1,
+      //             child: PieChart(
+      //               PieChartData(
+      //                   pieTouchData: PieTouchData(touchCallback:
+      //                       (FlTouchEvent event, pieTouchResponse) {
+      //                     setState(() {
+      //                       if (!event.isInterestedForInteractions ||
+      //                           pieTouchResponse == null ||
+      //                           pieTouchResponse.touchedSection == null) {
+      //                         touchedIndex = -1;
+      //                         return;
+      //                       }
+      //                       touchedIndex = pieTouchResponse
+      //                           .touchedSection!.touchedSectionIndex;
+      //                     });
+      //                   }),
+      //                   borderData: FlBorderData(
+      //                     show: false,
+      //                   ),
+      //                   sectionsSpace: 0,
+      //                   centerSpaceRadius: 0,
+      //                   sections: showingSections()),
+      //             ),
+      //           ),
+      //         ),
+      //         Column(
+      //           mainAxisSize: MainAxisSize.max,
+      //           mainAxisAlignment: MainAxisAlignment.end,
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: <Widget>[
+      //             Row(
+      //               children: [
+      //                 Container(
+      //                   width: 10.0,
+      //                   height: 10.0,
+      //                   color: Color(0xff0293ee),
+      //                 ),
+      //                 const SizedBox(width: 10.0),
+      //                 Text('First')
+      //               ],
+      //             ),
+      //             SizedBox(
+      //               height: 4,
+      //             ),
+      //             Row(
+      //               children: [
+      //                 Container(
+      //                   width: 10.0,
+      //                   height: 10.0,
+      //                   color: Color(0xfff8b250),
+      //                 ),
+      //                 const SizedBox(width: 10.0),
+      //                 Text('Second')
+      //               ],
+      //             ),
+      //             SizedBox(
+      //               height: 4,
+      //             ),
+      //             Row(
+      //               children: [
+      //                 Container(
+      //                   width: 10.0,
+      //                   height: 10.0,
+      //                   color: Color(0xff845bef),
+      //                 ),
+      //                 const SizedBox(width: 10.0),
+      //                 Text('Third')
+      //               ],
+      //             ),
+      //             SizedBox(
+      //               height: 4,
+      //             ),
+      //             Row(
+      //               children: [
+      //                 Container(
+      //                   width: 10.0,
+      //                   height: 10.0,
+      //                   color: Color(0xff13d38e),
+      //                 ),
+      //                 const SizedBox(width: 10.0),
+      //                 Text('Fourth')
+      //               ],
+      //             ),
+      //             SizedBox(
+      //               height: 18,
+      //             ),
+      //           ],
+      //         ),
+      //         const SizedBox(
+      //           width: 28,
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
     );
   }
 
